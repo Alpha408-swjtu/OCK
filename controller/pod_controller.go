@@ -10,7 +10,7 @@ import (
 	"k8s.io/client-go/util/workqueue"
 )
 
-func NewPodController() *PodController {
+func NewPodController() *Controller {
 	clientSet := client.NewClientSet()
 
 	queue := workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter()) //创建队列
@@ -39,7 +39,8 @@ func NewPodController() *PodController {
 			}
 		},
 	}, cache.Indexers{})
-	return &PodController{
+	return &Controller{
+		Name:     "Pod_Controller",
 		indexer:  indexer,
 		queue:    queue,
 		informer: informer,

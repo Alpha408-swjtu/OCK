@@ -40,7 +40,7 @@ func newListWatchForDynamicClient(dynamicClient dynamic.Interface, gvr schema.Gr
 	}
 }
 
-func NewCrdController() *CrdController {
+func NewCrdController() *Controller {
 	crdClient := client.NewCrdClient()
 	queue := workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter())
 	listWatcher := newListWatchForDynamicClient(crdClient, crd, "default")
@@ -67,7 +67,8 @@ func NewCrdController() *CrdController {
 			}
 		},
 	}, cache.Indexers{})
-	return &CrdController{
+	return &Controller{
+		Name:     "Crd_Controller",
 		indexer:  indexer,
 		queue:    queue,
 		informer: controller,
