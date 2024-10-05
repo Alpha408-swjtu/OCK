@@ -9,25 +9,19 @@
 ##  Controller结构
 
 ```go
-type PodController struct {
+type Controller struct {
+	Name     string
 	indexer  cache.Indexer
 	queue    workqueue.RateLimitingInterface
 	informer cache.Controller
-	client   *kubernetes.Clientset
-}
-
-type CrdController struct {
-	indexer  cache.Indexer
-	queue    workqueue.RateLimitingInterface
-	informer cache.Controller
-	client   *dynamic.DynamicClient
+	client   client.IClient
 }
 ```
 
 ##  创建Pod Controller实例
 
 ```go
-func NewPodController() *PodController {
+func NewPodController() *Controller {
 	clientSet := client.NewClientSet()
 
 	queue := workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter()) //创建队列
