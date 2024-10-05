@@ -18,6 +18,13 @@ type Controller struct {
 }
 ```
 
+```go
+type IClient interface{}
+//空接口，用于接收客户端参数
+```
+
+
+
 ##  创建Pod Controller实例
 
 ```go
